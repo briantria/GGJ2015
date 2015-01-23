@@ -3,8 +3,8 @@ using System.Collections;
 
 public class TheButton : MonoBehaviour 
 {
-	private void Start ()
+	public void OnClick ()
 	{
-//		Screen.showCursor = true;
+		LevelMngr.Instance.LoadNextLevel (Constants.LVL_THECURSOR);
 	}
 }
