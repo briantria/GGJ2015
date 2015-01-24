@@ -5,6 +5,10 @@ using System.Collections;
 public class LevelListen : MonoBehaviour 
 {
 	private GameObject m_player;
+	private float m_prevPlayerRotY;
+	private float m_deltaRotY;
+	private bool m_bIsTracking;
+	
 	private Image m_fadeScreen;
 	private Vector4 m_screenColor;
 
@@ -13,6 +17,18 @@ public class LevelListen : MonoBehaviour
 		m_player = GameObject.FindGameObjectWithTag("Player");
 		m_fadeScreen = GameObject.Find("FadeScreen").transform.FindChild("Image").GetComponent<Image>();
 		m_screenColor = m_fadeScreen.color;
+		m_bIsTracking = false;
+	}
+	
+	private void Update ()
+	{
+		if(m_bIsTracking)
+		{
+			m_deltaRotY = m_player.transform.eulerAngles.y - m_prevPlayerRotY;
+			audio.pan -= (m_deltaRotY * Time.deltaTime);
+			m_prevPlayerRotY = m_player.transform.eulerAngles.y;
+			Debug.Log ("pan: " + audio.pan + ", y:" + (m_deltaRotY * Time.deltaTime));
+		}
 	}
 	
 	private void OnTriggerEnter (Collider p_collider)
@@ -25,6 +41,7 @@ public class LevelListen : MonoBehaviour
 			audio.volume = 0.0f;
 			audio.Play();
 			StartCoroutine("IEFadeIn");
+			StartTracking();
 		}
 	}
 	
@@ -32,7 +49,7 @@ public class LevelListen : MonoBehaviour
 	{
 		if(p_collider.CompareTag("Player"))
 		{
-			if(Mathf.Abs(audio.pan) > 0.4f)
+			if(Mathf.Abs(audio.pan) > 0.5f)
 			{
 				LevelMngr.Instance.UpdateQoute(1);
 				LevelMngr.Instance.LoadNextLevel(Constants.LVL_DOWNBELOW);
@@ -41,7 +58,14 @@ public class LevelListen : MonoBehaviour
 			//else hoorah!
 		
 			StartCoroutine("IEFadeOut");
+			m_bIsTracking = false;
 		}
+	}
+	
+	private void StartTracking ()
+	{
+		m_prevPlayerRotY = m_player.transform.eulerAngles.y;
+		m_bIsTracking = true;
 	}
 	
 	private IEnumerator IEFadeOut ()
