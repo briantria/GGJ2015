@@ -23,14 +23,6 @@ public class LevelRun : MonoBehaviour
 		m_letterColor = m_letterW.color;
 		m_bIsPlatformVisible = false;
 		m_charMotor = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMotor>();
-		
-//		Transform sp = GameObject.Find("StaticPlatforms").transform;
-//		sp.gameObject.SetActive(true);
-//		int count = sp.childCount;
-//		for(int idx = 0; idx < count; ++idx)
-//		{
-//			m_listStaticPlatforms.Add(sp.GetChild(idx).gameObject);
-//		}
 
 		StaticPlatformMngr.Instance.EnableAllChildren();
 		m_listStaticPlatforms = StaticPlatformMngr.Instance.GetChildrenList();
