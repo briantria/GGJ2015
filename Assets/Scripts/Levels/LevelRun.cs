@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelRun : MonoBehaviour 
 {
 	public Text m_letterW;
 	private bool m_bIsPlatformVisible;
+	
+	private List<GameObject> m_listStaticPlatforms = new List<GameObject>();
 	private MaterialFadeAnim m_platformMatFadeAnim;
 	
 	private float m_letterFadeInSpeed;
@@ -19,8 +22,16 @@ public class LevelRun : MonoBehaviour
 		m_letterFadeInSpeed = 0.0f;
 		m_letterColor = m_letterW.color;
 		m_bIsPlatformVisible = false;
-		m_platformMatFadeAnim = this.transform.FindChild("Platform").GetComponent<MaterialFadeAnim>();
 		m_charMotor = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMotor>();
+		
+		Transform sp = GameObject.Find("StaticPlatforms").transform;
+		int count = sp.childCount;
+		for(int idx = 0; idx < count; ++idx)
+		{
+			m_listStaticPlatforms.Add(sp.GetChild(idx).gameObject);
+		}
+		
+		m_platformMatFadeAnim = m_listStaticPlatforms[0].GetComponent<MaterialFadeAnim>();
 	}
 	
 	private void Start ()
