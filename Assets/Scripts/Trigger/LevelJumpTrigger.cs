@@ -19,6 +19,7 @@ public class LevelJumpTrigger : MonoBehaviour
 		{
 			m_bAlreadyHit = true;
 			m_charMotor.jumping.enabled = true;
+			LevelMngr.Instance.LoadNextLevel(Constants.LVL_JUMP);
 		}
 	}
 }

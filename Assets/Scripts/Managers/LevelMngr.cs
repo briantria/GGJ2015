@@ -34,7 +34,7 @@ public class LevelMngr : MonoBehaviour
 			Destroy (m_currLevel);
 		}
 
-		m_currLevel = GameObject.Instantiate(Resources.Load ("Prefabs/" + p_lvlName)) as GameObject;
+		m_currLevel = GameObject.Instantiate(Resources.Load ("Prefabs/Levels/" + p_lvlName)) as GameObject;
 		m_currLevel.name = p_lvlName;
 		m_currLevel.transform.SetParent (m_transform);
 	}
