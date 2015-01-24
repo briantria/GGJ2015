@@ -19,6 +19,7 @@ public class MaterialFadeAnim : MonoBehaviour
 	
 	public void FadeIn (float p_speed = 120.0f)
 	{
+		m_color = m_material.color;
 		m_speed = p_speed;
 		StartCoroutine("IEFadeIn");
 	}

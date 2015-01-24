@@ -24,13 +24,20 @@ public class LevelRun : MonoBehaviour
 		m_bIsPlatformVisible = false;
 		m_charMotor = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMotor>();
 		
-		Transform sp = GameObject.Find("StaticPlatforms").transform;
-		int count = sp.childCount;
-		for(int idx = 0; idx < count; ++idx)
-		{
-			m_listStaticPlatforms.Add(sp.GetChild(idx).gameObject);
-		}
+//		Transform sp = GameObject.Find("StaticPlatforms").transform;
+//		sp.gameObject.SetActive(true);
+//		int count = sp.childCount;
+//		for(int idx = 0; idx < count; ++idx)
+//		{
+//			m_listStaticPlatforms.Add(sp.GetChild(idx).gameObject);
+//		}
+
+		StaticPlatformMngr.Instance.EnableAllChildren();
+		m_listStaticPlatforms = StaticPlatformMngr.Instance.GetChildrenList();
 		
+		Vector4 color = m_listStaticPlatforms[0].renderer.material.color;
+		color.w = 0.0f;
+		m_listStaticPlatforms[0].renderer.material.color = (Color) color;
 		m_platformMatFadeAnim = m_listStaticPlatforms[0].GetComponent<MaterialFadeAnim>();
 	}
 	
@@ -42,7 +49,6 @@ public class LevelRun : MonoBehaviour
 	
 	private void Update ()
 	{
-		// TODO: Centralized keyboard input manager
 		if(   m_bIsPlatformVisible == false
 		   && Input.GetKeyDown(KeyCode.W))
 		{
