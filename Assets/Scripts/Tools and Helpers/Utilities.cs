@@ -16,4 +16,10 @@ public class Utilities : MonoBehaviour
 	{
 		return Camera.main.ScreenToWorldPoint (new Vector3(p_x, p_y, p_z));
 	}
+	
+	public static void ShowCursor (bool p_bShowCursor)
+	{
+		Screen.showCursor = p_bShowCursor;
+		Screen.lockCursor = !p_bShowCursor;
+	}
 }

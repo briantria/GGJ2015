@@ -35,7 +35,7 @@ public class LevelRun : MonoBehaviour
 	
 	private void Start ()
 	{
-		Screen.showCursor = false;
+		Utilities.ShowCursor(false);
 		FadeIn();
 	}
 	
