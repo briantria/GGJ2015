@@ -17,6 +17,8 @@ public class LevelDownBelow : MonoBehaviour
 	private void Start ()
 	{
 		FadeIn();
+		BGMusicMngr.Instance.FadeIn(BGMType.GuitarOminous, 0.8f);
+		BGMusicMngr.Instance.FadeIn(BGMType.Ambience02, 0.7f);
 	}
 	
 	private void FadeIn (float p_speed = 30.0f)
