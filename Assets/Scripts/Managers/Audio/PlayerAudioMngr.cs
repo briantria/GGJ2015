@@ -10,7 +10,8 @@ public class PlayerAudioMngr : MonoBehaviour
 	private AudioSource m_audioSource;
 	private float m_soundPlayInterval;
 	private float m_timeLapsed;
-	private bool m_bDidJump;
+	private bool m_bJustLanded;
+	private bool m_bJustJumped;
 	
 	private CharacterController m_charController;
 	private CharacterMotor m_charMotor;
@@ -20,7 +21,8 @@ public class PlayerAudioMngr : MonoBehaviour
 		m_audioSource = GetComponent<AudioSource>();
 		m_soundPlayInterval = 0.5f;
 		m_timeLapsed = 0.0f;
-		m_bDidJump = false;
+		m_bJustLanded = true;
+		m_bJustJumped = true;
 		
 		m_charController = GetComponent<CharacterController>();
 		m_charMotor = GetComponent<CharacterMotor>();
@@ -29,7 +31,7 @@ public class PlayerAudioMngr : MonoBehaviour
 	private void Update ()
 	{
 		PlayFootStep();
-		PlayGrunt();
+		PlayGruntJump();
 	}
 	
 	private void PlayFootStep ()
@@ -60,25 +62,37 @@ public class PlayerAudioMngr : MonoBehaviour
 		}
 	}
 	
-	private void PlayGrunt ()
+	private void PlayGruntJump ()
 	{
 		if(m_charMotor.enabled == false)
 		{
 			return;
 		}
-	
-		if (	m_charController.isGrounded
-			&&	Input.GetKeyDown(KeyCode.Space))
-		{
-			m_bDidJump = true;
-			m_audioSource.PlayOneShot(m_gruntTakeOff, Random.Range(0.7f, 1.0f));
-		}
 		
-//		if (	m_bDidJump
-//		    &&	m_charController.isGrounded)
-//		{
-//			m_bDidJump = false;
-//			m_audioSource.PlayOneShot(m_gruntLand, Random.Range(0.6f, 8.0f));
-//		}
+		if(m_charMotor.jumping.enabled == false)
+		{
+			return;
+		}
+	
+		if (m_charController.isGrounded)
+		{
+			if(!m_bJustLanded)
+			{
+				m_bJustLanded = true;
+				m_bJustJumped = true;
+				m_audioSource.PlayOneShot(m_gruntLand, Random.Range(0.7f, 1.0f));
+				m_audioSource.PlayOneShot(m_footstepSfx, Random.Range(0.5f, 0.8f));
+			}
+		}
+		else
+		{
+			m_bJustLanded = false;
+			
+			if(m_bJustJumped)
+			{
+				m_bJustJumped = false;
+				m_audioSource.PlayOneShot(m_gruntTakeOff, Random.Range(0.7f, 1.0f));
+			}
+		}
 	}
 }

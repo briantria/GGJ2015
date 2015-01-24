@@ -10,7 +10,8 @@ public class LevelMouseLookTrigger : MonoBehaviour
 	private void Awake ()
 	{
 		m_mouseLookX = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>();
-		m_mouseLookY = m_mouseLookX.transform.FindChild("Eye (Main Camera)").GetComponent<MouseLook>();
+		m_mouseLookY = m_mouseLookX.transform.FindChild("Head").transform
+						.FindChild("Eye (Main Camera)").GetComponent<MouseLook>();
 		m_bAlreadyHit = false;
 	}
 	
