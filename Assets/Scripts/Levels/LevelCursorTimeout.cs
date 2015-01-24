@@ -4,6 +4,9 @@ using UnityEngine.UI;
 public class LevelCursorTimeout : MonoBehaviour 
 {
 	public Text m_countterDisplay;
+//	public AudioClip m_audioClip;
+	
+	private AudioSource m_audioSource;
 
 	private Transform m_transform;
 	private Transform m_counterPos;
@@ -27,6 +30,9 @@ public class LevelCursorTimeout : MonoBehaviour
 		m_counterPos = m_transform.FindChild ("Counter").transform;
 //		m_ctrPosOffset = Utilities.GetScreenPos (0.5f, 0.8f);
 //		Debug.Log (m_ctrPosOffset);
+
+		m_audioSource = GetComponent<AudioSource>();
+//		m_audioSource.clip = 
 	}
 
 	private void Update () 
@@ -55,6 +61,10 @@ public class LevelCursorTimeout : MonoBehaviour
 		else
 		{
 			m_countterDisplay.text = m_counter.ToString();
+			if(!m_audioSource.isPlaying)
+			{
+				m_audioSource.Play();
+			}
 		}
 	}
 
