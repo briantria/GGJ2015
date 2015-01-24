@@ -12,6 +12,7 @@ public class LevelDownBelow : MonoBehaviour
 	{
 		m_clueFadeInSpeed = 0.0f;
 		m_clueColor = m_clue.color;
+		m_clue.text = LevelMngr.Instance.FetchCurrQoute();
 	}
 	
 	private void Start ()

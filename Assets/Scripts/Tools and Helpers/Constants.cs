@@ -19,3 +19,15 @@ public enum BGMType
 	GuitarOminous,
 	Ambience02
 }
+
+public enum LevelInProgress
+{
+	TheButton,
+	CursorTimeout,
+	Run,
+	Jump,
+	MouseLook,
+	DownBelow,
+	Listen,
+	ToTheLight
+}

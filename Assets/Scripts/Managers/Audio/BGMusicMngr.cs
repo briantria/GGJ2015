@@ -21,7 +21,7 @@ public class BGMusicMngr : MonoBehaviour
 	private void Awake ()
 	{
 		m_instance = this;
-		m_fadeSpeed = 5.0f;
+		m_fadeSpeed = 0.5f;
 //		m_transform = this.transform;
 //		bgm_singleCricket = m_transform.Find("SingleCricket").GetComponent<AudioSource>();
 //		bgm_guitar = m_transform.Find("GuitarOminous").GetComponent<AudioSource>();
