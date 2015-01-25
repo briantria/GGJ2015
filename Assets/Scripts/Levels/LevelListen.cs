@@ -11,6 +11,8 @@ public class LevelListen : MonoBehaviour
 	
 	private Image m_fadeScreen;
 	private Vector4 m_screenColor;
+	
+	private bool m_readyToEsc;
 
 	private void Awake ()
 	{
@@ -18,6 +20,7 @@ public class LevelListen : MonoBehaviour
 		m_fadeScreen = GameObject.Find("FadeScreen").transform.FindChild("Image").GetComponent<Image>();
 		m_screenColor = m_fadeScreen.color;
 		m_bIsTracking = false;
+		m_readyToEsc = false;
 	}
 	
 	private void Update ()
@@ -27,7 +30,12 @@ public class LevelListen : MonoBehaviour
 			m_deltaRotY = m_player.transform.eulerAngles.y - m_prevPlayerRotY;
 			audio.pan -= (m_deltaRotY * Time.deltaTime);
 			m_prevPlayerRotY = m_player.transform.eulerAngles.y;
-			Debug.Log ("pan: " + audio.pan + ", y:" + (m_deltaRotY * Time.deltaTime));
+		}
+		
+		if(m_readyToEsc && Input.GetKeyUp(KeyCode.Escape))
+		{
+			Utilities.ShowCursor(true);
+			Application.LoadLevel(0);
 		}
 	}
 	
@@ -54,8 +62,12 @@ public class LevelListen : MonoBehaviour
 				LevelMngr.Instance.UpdateQoute(1);
 				LevelMngr.Instance.LoadNextLevel(Constants.LVL_DOWNBELOW);
 				StartCoroutine("ResetGame");
+				m_readyToEsc = false;
 			}
-			//else hoorah!
+			else
+			{
+				m_readyToEsc = true;
+			}
 		
 			StartCoroutine("IEFadeOut");
 			m_bIsTracking = false;
