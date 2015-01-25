@@ -4,6 +4,8 @@ using System.Collections;
 
 public class LevelListen : MonoBehaviour 
 {
+	public GameObject m_nextPlatform;
+
 	private GameObject m_player;
 	private float m_prevPlayerRotY;
 	private float m_deltaRotY;
@@ -13,7 +15,7 @@ public class LevelListen : MonoBehaviour
 	private Vector4 m_screenColor;
 	
 	private bool m_readyToEsc;
-
+	
 	private void Awake ()
 	{
 		m_player = GameObject.FindGameObjectWithTag("Player");
@@ -44,6 +46,7 @@ public class LevelListen : MonoBehaviour
 	{
 		if(p_collider.CompareTag("Player"))
 		{
+			m_nextPlatform.SetActive(true);
 			float randPan = Random.Range(0.8f, 1.0f);
 			if(Random.Range(0.0f,1.0f) < 0.5f) randPan = -randPan;
 			audio.pan = randPan;
@@ -124,5 +127,7 @@ public class LevelListen : MonoBehaviour
 			m_fadeScreen.color = m_screenColor;
 			yield return 0;
 		}
+		
+		StaticPlatformMngr.Instance.EnablePlatform(5,false);
 	}
 }

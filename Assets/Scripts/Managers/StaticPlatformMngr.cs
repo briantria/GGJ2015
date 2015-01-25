@@ -37,4 +37,9 @@ public class StaticPlatformMngr : MonoBehaviour
 			m_listPlatforms[idx].SetActive(true);
 		}
 	}
+	
+	public void EnablePlatform (int p_idx, bool p_bool)
+	{
+		m_listPlatforms[p_idx].SetActive(p_bool);
+	}
 }

@@ -49,6 +49,7 @@ public class LevelRun : MonoBehaviour
 			m_charMotor.enabled = true;
 			m_platformMatFadeAnim.FadeIn();
 			this.FadeOut(200.0f);
+			StaticPlatformMngr.Instance.EnablePlatform(5,false);
 		}
 	}
 	#endregion
