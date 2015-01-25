@@ -34,8 +34,9 @@ public class LevelListen : MonoBehaviour
 		
 		if(m_readyToEsc && Input.GetKeyUp(KeyCode.Escape))
 		{
+			m_player.GetComponent<CharacterMotor>().enabled = false;
 			Utilities.ShowCursor(true);
-			Application.LoadLevel(0);
+			GameObject.Instantiate(Resources.Load(Constants.ENDSCREEN));
 		}
 	}
 	
